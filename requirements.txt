@@ -1,0 +1,11 @@
+# Numerical arrays used for descriptors, histograms, and saved artifacts.
+numpy>=1.24
+
+# OpenCV provides only the SIFT detector/descriptor (not a BoW pipeline).
+opencv-contrib-python>=4.8
+
+# We use its independent k-means, nearest-neighbor, and linear SVM routines.
+scikit-learn>=1.3
+
+# Used to save readable confusion-matrix figures.
+matplotlib>=3.7
