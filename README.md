@@ -53,6 +53,20 @@ python3 main.py --dataset dataset --clusters 100 \
   --vocab-descriptors 50000 --output results/k100
 ```
 
+To save one representative test image per category with its SIFT keypoints,
+plus its numerical `N x 128` descriptor array, add `--visualize-sift`:
+
+```bash
+python3 main.py --dataset dataset --clusters 100 --visualize-sift
+```
+
+If you only need the 15 SIFT examples and do not want to run the classifier,
+use the faster command:
+
+```bash
+python3 main.py --dataset dataset --visualize-sift-only
+```
+
 For a small vocabulary comparison, use, for example, `--clusters 50`, `100`,
 and `200`, each with a distinct output directory. Use the same descriptor count
 and seed to make the comparison fair:
@@ -80,6 +94,8 @@ Each output directory contains:
 - `nearest_neighbor_*` and `linear_svm_*` — predictions and confusion matrices
   in both CSV and PNG format.
 - `metrics.json` — accuracy plus experiment parameters.
+- `sift_visualizations/` (with `--visualize-sift`) — one keypoint image and one
+  `.npy` SIFT-descriptor matrix for every test category.
 
 In each confusion matrix, **rows are true classes** and **columns are predicted
 classes**.

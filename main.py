@@ -11,13 +11,11 @@ import numpy as np
 
 from src.build_vocabulary import learn_vocabulary, load_vocabulary, save_vocabulary
 from src.compute_histograms import build_histograms
-from src.extract_features import make_sift, read_split, sample_descriptors
-from src.train_classifier import (
-    evaluate_and_save,
-    predict_svm,
-    save_svm,
-    train_linear_svm,
-    train_nearest_neighbor,
+from src.extract_features import (
+    make_sift,
+    read_split,
+    sample_descriptors,
+    save_sift_visualizations,
 )
 
 
@@ -37,6 +35,10 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--models", type=Path, default=Path("models"))
     parser.add_argument("--output", type=Path, default=Path("results/bow"))
     parser.add_argument("--reuse-vocabulary", action="store_true")
+    # Save one representative test image with its detected SIFT keypoints per class.
+    parser.add_argument("--visualize-sift", action="store_true")
+    # Stop after creating the SIFT examples instead of also running the BoW experiment.
+    parser.add_argument("--visualize-sift-only", action="store_true")
     parser.add_argument("--seed", type=int, default=42)
     return parser.parse_args()
 
@@ -58,6 +60,24 @@ def main() -> None:
     vocabulary_path = args.models / "vocabulary.pkl"
     svm_path = args.models / "svm_model.pkl"
     sift = make_sift(args.sift_features)
+
+    if args.visualize_sift or args.visualize_sift_only:
+        # This is independent of BoW training and uses only the test-image SIFT features.
+        save_sift_visualizations(
+            test_paths, test_labels, class_names, sift, args.output / "sift_visualizations"
+        )
+    if args.visualize_sift_only:
+        print("SIFT visualizations completed; skipping vocabulary and classifier training.")
+        return
+
+    # Import plotting and classifier code only when the full experiment is requested.
+    from src.train_classifier import (
+        evaluate_and_save,
+        predict_svm,
+        save_svm,
+        train_linear_svm,
+        train_nearest_neighbor,
+    )
 
     if args.reuse_vocabulary:
         vocabulary = load_vocabulary(vocabulary_path, args.clusters)
