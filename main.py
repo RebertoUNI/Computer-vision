@@ -24,9 +24,9 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="SIFT Bag-of-Words classifier")
     # Use dataset/ for the provided files; pass --dataset data after renaming it.
     parser.add_argument("--dataset", type=Path, default=Path("dataset"))
-    parser.add_argument("--clusters", type=int, default=100)
+    parser.add_argument("--clusters", type=int, default=500)
     # The default sample count is inside the assignment's requested 10K--100K range.
-    parser.add_argument("--vocab-descriptors", type=int, default=50_000)
+    parser.add_argument("--vocab-descriptors", type=int, default=100_000)
     parser.add_argument("--sift-features", type=int, default=0)
     parser.add_argument("--assignment-batch-size", type=int, default=4_096)
     parser.add_argument("--svm-c", type=float, default=1.0)
