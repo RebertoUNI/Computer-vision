@@ -1,0 +1,12 @@
+N_FEATURES = 150
+NUM_SAMPLES = 100000
+NUM_CLUSTER = 80
+
+K_NEIGHBORS = 1  # Hyperparameter for k-NN algorithm
+
+# NUMBER_OF_DENSE_SIFT 
+
+DENSE = False
+SOFT_ASSIGNMENT = False  # True: Soft Assignment | False: Hard Assignment
+SPATIAL_PYRAMID = False  # True: Spatial Pyramid (L2) | False: Standard BoW (Level 0)
+BETA = 0.001  # Gaussian kernel parameter (used if SOFT_ASSIGNMENT = True)
