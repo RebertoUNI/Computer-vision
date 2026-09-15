@@ -92,11 +92,11 @@ def plot_hist(idx, X_train, y_train):
     plt.tight_layout()
     plt.show()
 
-def plot_confusion_matrix(cm, classes, title):
+def plot_confusion_matrix(cm, classes, title, cmap='Blues'):
     """Visualizza una matrice di confusione."""
     fig, ax = plt.subplots(figsize=(12, 10))
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classes)
-    disp.plot(ax=ax, cmap='Blues', xticks_rotation='vertical', values_format='d')
+    disp.plot(ax=ax, cmap=cmap, xticks_rotation='vertical', values_format='d')
     plt.title(title, fontsize=14, fontweight='bold')
     plt.xlabel("Predicted Class", fontsize=12)
     plt.ylabel("True Class", fontsize=12)
